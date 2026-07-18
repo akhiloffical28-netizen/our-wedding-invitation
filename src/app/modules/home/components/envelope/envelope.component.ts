@@ -23,6 +23,7 @@ export class EnvelopeComponent {
   }
 
   @Output() opened = new EventEmitter<void>();
+  @Output() playMusic = new EventEmitter<void>();
 
   isEnvelopeOpen = signal(false);
 
@@ -30,6 +31,7 @@ export class EnvelopeComponent {
     if (this.isEnvelopeOpen()) return;
 
     this.isEnvelopeOpen.set(true);
+    this.playMusic.emit();
 
     // Notify parent after opening animation completes
     setTimeout(() => {

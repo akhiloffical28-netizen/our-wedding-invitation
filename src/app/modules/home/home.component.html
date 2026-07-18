@@ -3,21 +3,40 @@
   <app-petals></app-petals>
 }
 
-<!-- Replay Envelope Button -->
+<!-- Floating Control Bar (Music Toggle & Replay Envelope) -->
 @if (isEnvelopeHidden()) {
-  <button 
-    class="replay-envelope-btn" 
-    (click)="replayEnvelope()" 
-    title="View Envelope Invitation Again"
-  >
-    <span>💌 View Envelope</span>
-  </button>
+  <div class="floating-controls">
+    <button 
+      class="control-btn music-btn" 
+      (click)="toggleMusic()" 
+      [class.playing]="isMusicPlaying()"
+      [title]="isMusicPlaying() ? 'Pause Background Music' : 'Play Background Music'"
+    >
+      @if (isMusicPlaying()) {
+        <span class="music-wave">
+          <span></span><span></span><span></span>
+        </span>
+        <span>🎵 Music ON</span>
+      } @else {
+        <span>🔇 Music Paused</span>
+      }
+    </button>
+
+    <button 
+      class="control-btn replay-envelope-btn" 
+      (click)="replayEnvelope()" 
+      title="View Envelope Invitation Again"
+    >
+      <span>💌 View Envelope</span>
+    </button>
+  </div>
 }
 
 <!-- Modular Envelope Stage Component -->
 <app-envelope 
   [isEnvelopeHidden]="isEnvelopeHidden()" 
   (opened)="onEnvelopeOpened()"
+  (playMusic)="startMusic()"
 ></app-envelope>
 
 <!-- Main Page Content Sequence: Hero -> Story -> Countdown -> Gallery -->
