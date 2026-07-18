@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 
 interface StoryEvent {
   date: string;
@@ -14,7 +14,9 @@ interface StoryEvent {
   styleUrl: './story.component.scss',
   standalone: false
 })
-export class StoryComponent {
+export class StoryComponent implements AfterViewInit, OnDestroy {
+  @ViewChildren('timelineItem') itemRefs!: QueryList<ElementRef>;
+
   storyEvents: StoryEvent[] = [
     {
       date: 'September 28, 2018',
@@ -28,7 +30,7 @@ export class StoryComponent {
       title: 'Our First Chapter',
       description: 'Shared coffee, endless laughter, and realizing we had found someone truly special.',
       icon: '☕',
-      image: '/images/story-1.png'
+      image: '/images/secound-photo.jpeg'
     },
     {
       date: 'February 14, 2024',
@@ -44,4 +46,31 @@ export class StoryComponent {
       icon: '💒'
     }
   ];
+
+  private observer: IntersectionObserver | null = null;
+
+  ngAfterViewInit(): void {
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      this.itemRefs.forEach(ref => {
+        this.observer?.observe(ref.nativeElement);
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
 }

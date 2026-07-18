@@ -9,7 +9,7 @@
 
     <div class="timeline">
       @for (item of storyEvents; track item.title; let i = $index) {
-        <div class="timeline-item" [class.even]="i % 2 === 1">
+        <div #timelineItem class="timeline-item" [class.even]="i % 2 === 1">
           
           <div class="timeline-badge">
             <span>{{ item.icon }}</span>

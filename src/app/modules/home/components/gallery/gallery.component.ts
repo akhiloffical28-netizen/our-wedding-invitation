@@ -20,9 +20,9 @@ export class GalleryComponent {
       category: 'Memories'
     },
     {
-      url: '/images/story-1.png',
-      caption: 'Akhil & Mary',
-      category: 'Pre-Wedding'
+      url: '/images/secound-photo.jpeg',
+      caption: 'Sweet Memories Together',
+      category: 'First Chapter'
     },
     {
       url: '/images/story-2.png',
