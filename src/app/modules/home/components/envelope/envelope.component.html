@@ -3,7 +3,6 @@
     class="envelope-wrapper-stage" 
     [class.open]="isEnvelopeOpen()"
   >
-    <!-- Background Ambient Floral Backdrop -->
     <div class="envelope-ambient-bg">
       <div class="glow-orb orb-1"></div>
       <div class="glow-orb orb-2"></div>
@@ -11,82 +10,86 @@
 
     <div class="envelope-container" (click)="openEnvelope()">
       
-      <!-- Charcoal Black Triangular Top Flap (As seen in video!) -->
-      <div class="envelope-flap-charcoal">
-        <div class="flap-inner-dark"></div>
+      <!-- Top Triangular Flap -->
+      <div class="envelope-flap">
+        <div class="flap-inner"></div>
       </div>
 
-      <!-- Golden Metallic Wax Stamp Seal Button (Center) -->
+      <!-- Interactive Magical Golden Butterfly Seal Button -->
       <button 
         type="button" 
-        class="wax-stamp-seal" 
+        class="butterfly-seal" 
         (click)="openEnvelope(); $event.stopPropagation()"
-        aria-label="Tap Golden Wax Seal to Open Invitation"
+        aria-label="Tap Golden Butterfly to Open Invitation"
       >
-        <div class="wax-seal-container">
-          <!-- 3D Gold Wax Stamp SVG -->
-          <svg class="wax-seal-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="butterfly-container">
+          
+          <!-- Animated SVG Golden Butterfly -->
+          <svg class="golden-butterfly-svg" viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="waxGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fff1aa" />
-                <stop offset="30%" stop-color="#e6b800" />
-                <stop offset="70%" stop-color="#b38600" />
-                <stop offset="100%" stop-color="#664d00" />
+              <linearGradient id="goldWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff59d" />
+                <stop offset="50%" stop-color="#f59e0b" />
+                <stop offset="100%" stop-color="#b45309" />
               </linearGradient>
-              <linearGradient id="waxRimGrad" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ffe680" />
-                <stop offset="50%" stop-color="#cc9900" />
-                <stop offset="100%" stop-color="#4d3900" />
+              <linearGradient id="goldBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fef08a" />
+                <stop offset="100%" stop-color="#78350f" />
               </linearGradient>
-              <filter id="waxShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#3d2b0f" flood-opacity="0.45" />
+              <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
             </defs>
 
-            <!-- Outer Irregular Organic Wax Stamp Rim -->
-            <path d="M50 4 C75 2, 96 22, 94 48 C92 76, 74 96, 48 95 C22 94, 4 74, 5 48 C6 22, 25 6, 50 4 Z" 
-                  fill="url(#waxGoldGrad)" filter="url(#waxShadow)" />
-            
-            <!-- Inner Recessed Wax Ring -->
-            <circle cx="50" cy="50" r="38" fill="url(#waxRimGrad)" stroke="#806000" stroke-width="1.5" />
-            <circle cx="50" cy="50" r="34" fill="url(#waxGoldGrad)" opacity="0.9" />
+            <!-- Left Wing -->
+            <g class="wing left-wing">
+              <path d="M50 40 C35 15, 10 5, 5 30 C2 45, 20 60, 48 45 Z" fill="url(#goldWingGrad)" stroke="#78350f" stroke-width="1.2" />
+              <path d="M48 44 C30 50, 15 65, 25 75 C38 82, 48 58, 50 46 Z" fill="url(#goldWingGrad)" stroke="#78350f" stroke-width="1" />
+              <!-- Wing Filigree -->
+              <path d="M45 38 C32 22, 18 15, 12 30" stroke="#78350f" stroke-width="0.8" opacity="0.6" fill="none" />
+              <path d="M45 42 C32 48, 22 58, 28 68" stroke="#78350f" stroke-width="0.8" opacity="0.6" fill="none" />
+            </g>
 
-            <!-- Interlocking Wedding Rings & Monogram Engraving -->
-            <!-- Ring 1 -->
-            <circle cx="43" cy="42" r="10" stroke="#4d3900" stroke-width="2.2" fill="none" />
-            <!-- Ring 2 -->
-            <circle cx="57" cy="42" r="10" stroke="#4d3900" stroke-width="2.2" fill="none" />
-            <!-- Monogram Text -->
-            <text x="50" y="68" font-family="'Cormorant Garamond', Georgia, serif" font-size="14" font-weight="bold" fill="#3d2b0f" text-anchor="middle" letter-spacing="1">A & M</text>
+            <!-- Right Wing -->
+            <g class="wing right-wing">
+              <path d="M50 40 C65 15, 90 5, 95 30 C98 45, 80 60, 52 45 Z" fill="url(#goldWingGrad)" stroke="#78350f" stroke-width="1.2" />
+              <path d="M52 44 C70 50, 85 65, 75 75 C62 82, 52 58, 50 46 Z" fill="url(#goldWingGrad)" stroke="#78350f" stroke-width="1" />
+              <!-- Wing Filigree -->
+              <path d="M55 38 C68 22, 82 15, 88 30" stroke="#78350f" stroke-width="0.8" opacity="0.6" fill="none" />
+              <path d="M55 42 C68 48, 78 58, 72 68" stroke="#78350f" stroke-width="0.8" opacity="0.6" fill="none" />
+            </g>
+
+            <!-- Butterfly Center Body & Antennae -->
+            <path d="M50 22 C48 15, 42 8, 40 5 M50 22 C52 15, 58 8, 60 5" stroke="#78350f" stroke-width="1.5" stroke-linecap="round" fill="none" />
+            <circle cx="40" cy="5" r="1.5" fill="#fef08a" />
+            <circle cx="60" cy="5" r="1.5" fill="#fef08a" />
+            <ellipse cx="50" cy="24" rx="3" ry="4" fill="url(#goldBodyGrad)" />
+            <ellipse cx="50" cy="42" rx="3.5" ry="16" fill="url(#goldBodyGrad)" />
           </svg>
 
-          <span class="wax-tap-hint">Tap to Open</span>
+          <div class="butterfly-monogram">A & M</div>
         </div>
       </button>
 
-      <!-- Kraft Paper Envelope Front Pocket Body -->
-      <div class="envelope-kraft-body">
-        <div class="side-fold fold-left"></div>
-        <div class="side-fold fold-right"></div>
-
+      <!-- Front Envelope Pocket Body -->
+      <div class="envelope-body">
+        <div class="pocket-pattern"></div>
         <div class="envelope-front-details">
-          <p class="invite-to">The Wedding of</p>
+          <p class="invite-to">Exclusive Wedding Invitation</p>
           <h2 class="couple-title">Akhil & Mary</h2>
-          <p class="tap-hint">Tap the golden seal to unseal invitation</p>
+          <p class="tap-hint">Tap the golden butterfly to open</p>
         </div>
       </div>
 
-      <!-- Luxury Cream & Gold Invitation Card Inside -->
+      <!-- Invitation Card Inside Envelope that Slides Out -->
       <div class="invitation-card-preview">
-        <div class="card-inner-border">
-          <div class="card-header">
-            <span class="golden-crown">✨</span>
-            <p>Together With Their Families</p>
-          </div>
-          <h3>Akhil & Mary</h3>
-          <p class="invite-subtext">Request the pleasure of your company</p>
-          <p class="date-badge">Sunday, January 31, 2027</p>
+        <div class="card-header">
+          <span class="golden-crown">👑</span>
+          <p>You Are Cordially Invited</p>
         </div>
+        <h3>Akhil & Mary</h3>
+        <p class="date-badge">January 31, 2027</p>
       </div>
 
     </div>
