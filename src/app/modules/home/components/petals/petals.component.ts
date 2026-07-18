@@ -19,7 +19,7 @@ export class PetalsComponent implements OnInit {
   petals: Petal[] = [];
 
   ngOnInit(): void {
-    this.generatePetals(32);
+    this.generatePetals(24);
   }
 
   private generatePetals(count: number): void {
@@ -27,9 +27,9 @@ export class PetalsComponent implements OnInit {
     for (let i = 0; i < count; i++) {
       arr.push({
         left: Math.random() * 96 + 2,
-        size: Math.floor(Math.random() * 14) + 14,
-        duration: Math.random() * 7 + 7,
-        delay: Math.random() * 7,
+        size: Math.floor(Math.random() * 12) + 14,
+        duration: Math.random() * 6 + 7,
+        delay: Math.random() * 6,
         opacity: Math.random() * 0.4 + 0.55,
         colorVariation: i % 4
       });

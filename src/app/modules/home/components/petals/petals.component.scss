@@ -1,21 +1,28 @@
 .petals-container {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 10001;
   overflow: hidden;
+  contain: strict;
 }
 
 .petal {
   position: absolute;
-  top: -12%;
+  top: 0;
+  left: 0;
   will-change: transform, opacity;
   animation: fallAndSway linear infinite;
-  filter: drop-shadow(0 3px 8px rgba(120, 53, 15, 0.25));
+  transform: translateZ(0);
+  backface-visibility: hidden;
 
   svg {
     width: 100%;
     height: 100%;
+    display: block;
   }
 
   /* Gold and Champagne Petal Options */
@@ -36,28 +43,27 @@
   }
 }
 
+/* 100% GPU Hardware Accelerated Animation without Layout Reflows */
 @keyframes fallAndSway {
   0% {
-    top: -10%;
-    transform: translateX(0) rotate(0deg) scale(0.8);
+    transform: translate3d(0, -10vh, 0) rotate(0deg) scale(0.7);
     opacity: 0;
   }
   15% {
     opacity: 0.9;
   }
   35% {
-    transform: translateX(40px) rotate(120deg) scale(1.05);
+    transform: translate3d(35px, 35vh, 0) rotate(120deg) scale(1.05);
   }
   65% {
-    transform: translateX(-35px) rotate(240deg) scale(0.9);
-    opacity: 0.9;
+    transform: translate3d(-30px, 70vh, 0) rotate(240deg) scale(0.9);
+    opacity: 0.85;
   }
   90% {
     opacity: 0.5;
   }
   100% {
-    top: 105%;
-    transform: translateX(20px) rotate(360deg) scale(0.8);
+    transform: translate3d(20px, 110vh, 0) rotate(360deg) scale(0.7);
     opacity: 0;
   }
 }
