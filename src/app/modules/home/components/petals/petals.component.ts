@@ -4,7 +4,7 @@ interface Petal {
   left: number;       // percentage 0 - 100
   size: number;       // px size (14 - 26)
   duration: number;   // seconds (6 - 14)
-  delay: number;      // seconds (0 - 7)
+  delay: number;      // negative seconds for pre-warmed positions
   opacity: number;    // 0.5 - 0.95
   colorVariation: number; // index 0 - 3
 }
@@ -19,18 +19,21 @@ export class PetalsComponent implements OnInit {
   petals: Petal[] = [];
 
   ngOnInit(): void {
-    this.generatePetals(24);
+    this.generatePetals(28);
   }
 
   private generatePetals(count: number): void {
     const arr: Petal[] = [];
     for (let i = 0; i < count; i++) {
+      const duration = Math.random() * 6 + 7; // 7s to 13s
+      // Negative delay pre-populates petals across full height immediately on reveal
+      const delay = -Math.random() * duration;
       arr.push({
-        left: Math.random() * 96 + 2,
+        left: Math.random() * 94 + 3,
         size: Math.floor(Math.random() * 12) + 14,
-        duration: Math.random() * 6 + 7,
-        delay: Math.random() * 6,
-        opacity: Math.random() * 0.4 + 0.55,
+        duration,
+        delay,
+        opacity: Math.random() * 0.45 + 0.5,
         colorVariation: i % 4
       });
     }

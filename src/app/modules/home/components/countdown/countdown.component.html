@@ -38,89 +38,93 @@
       </div>
     </div>
 
-    <!-- Toggle Reveal Board Action Button -->
-    <div class="reveal-action-wrapper">
-      <button 
-        class="toggle-reveal-btn" 
-        (click)="toggleBoardReveal()"
-        [class.active]="showDroppedBoard()"
-      >
-        <span>{{ showDroppedBoard() ? '✨ Hide Venue Details' : '📜 Reveal Venue & Map Details' }}</span>
-        <span class="dropdown-arrow" [class.rotated]="showDroppedBoard()">▼</span>
-      </button>
+    <!-- Step 1: Standalone Red Heart Scratch Card -->
+    <div class="heart-stage-wrapper">
+      <div class="standalone-heart-card" [class.scratched]="isHeartScratched()">
+        
+        <!-- Red Heart Scratch Overlay Layer -->
+        @if (!isHeartScratched()) {
+          <div class="heart-scratch-wrapper">
+            <canvas 
+              #heartCanvas
+              class="heart-canvas"
+              (mousedown)="startScratch($event)"
+              (mousemove)="scratch($event)"
+              (mouseup)="stopScratch()"
+              (mouseleave)="stopScratch()"
+              (touchstart)="startScratch($event)"
+              (touchmove)="scratch($event)"
+              (touchend)="stopScratch()"
+            ></canvas>
+
+            <div class="heart-scratch-actions">
+              <button class="quick-heart-btn" (click)="revealHeartInstantly()">✨ Reveal Instantly</button>
+            </div>
+          </div>
+        }
+
+        <!-- Revealed Secret Details (Date, Time, Venue) Directly Inside Heart Card -->
+        <div class="revealed-heart-content" [class.visible]="isHeartScratched()">
+          <div class="heart-content-inner">
+            <span class="heart-sparkle">💖</span>
+            <h3 class="heart-title">Event Details</h3>
+            
+            <div class="heart-info-item">
+              <span class="item-icon">🗓️</span>
+              <span class="item-text">{{ eventDateFormatted }}</span>
+            </div>
+
+            <div class="heart-info-item">
+              <span class="item-icon">⏰</span>
+              <span class="item-text">{{ eventTime }}</span>
+            </div>
+
+            <div class="heart-info-item venue-item">
+              <span class="item-icon">💒</span>
+              <span class="item-text">{{ venueAddress }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <!-- Dropped Announcement Board (Clean Date, Venue & Map Details) -->
-    @if (showDroppedBoard() || isCompleted()) {
-      <div class="dropped-board-wrapper">
+    <!-- Step 2: Hanging Gold Chain Board Revealed ONLY AFTER Scratch Completion -->
+    @if (isHeartScratched()) {
+      <div class="hanging-board-wrapper">
         
-        <!-- Ornate Hanging Strings / Chains -->
+        <!-- Metallic Gold Chains Hanging Down -->
         <div class="hanging-chains">
           <div class="chain chain-left"></div>
           <div class="chain chain-right"></div>
         </div>
 
-        <div class="dropped-board-card">
+        <div class="hanging-sign-board">
           <div class="board-header">
-            <span class="golden-sparkle">✨</span>
-            <h3>{{ isCompleted() ? 'The Wait Is Over!' : 'Wedding Event & Location' }}</h3>
-            <span class="golden-sparkle">✨</span>
+            <span class="golden-sparkle">📍</span>
+            <h3>Venue Location & Directions</h3>
+            <span class="golden-sparkle">📍</span>
           </div>
 
-          <div class="board-details-grid">
-            <!-- Date Card -->
-            <div class="info-card">
-              <div class="icon-circle">🗓️</div>
-              <div class="info-text">
-                <span class="info-label">Date</span>
-                <span class="info-val">{{ eventDateFormatted }}</span>
-              </div>
-            </div>
+          <p class="map-subtext">Tap below to open interactive directions in Google Maps</p>
 
-            <!-- Time Card -->
-            <div class="info-card">
-              <div class="icon-circle">⏰</div>
-              <div class="info-text">
-                <span class="info-label">Time</span>
-                <span class="info-val">{{ eventTime }}</span>
-              </div>
-            </div>
-
-            <!-- Venue Card -->
-            <div class="info-card full-width">
-              <div class="icon-circle">💒</div>
-              <div class="info-text">
-                <span class="info-label">Venue</span>
-                <span class="info-val">{{ venueAddress }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Venue Map & Navigation Section -->
-          <div class="board-map-container">
-            <div class="map-action-header">
-              <h4>📍 Venue Location & Directions</h4>
-              <p>Tap below to navigate directly using Google Maps</p>
-            </div>
-
-            <a 
-              [href]="locationUrl" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="google-maps-board-btn"
-              id="countdown-google-maps-btn"
-            >
-              <svg class="map-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              <span>Open Location in Google Maps</span>
-              <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-              </svg>
-            </a>
-          </div>
-
+          <a 
+            [href]="locationUrl" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="google-maps-board-btn"
+            id="countdown-google-maps-btn"
+          >
+            <svg class="map-btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Open Location in Google Maps</span>
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+            </svg>
+          </a>
         </div>
+
       </div>
     }
 

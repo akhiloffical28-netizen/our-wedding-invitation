@@ -111,82 +111,206 @@
   }
 }
 
-.reveal-action-wrapper {
-  margin-top: 2rem;
+/* Step 1: Standalone Red Heart Stage */
+.heart-stage-wrapper {
   display: flex;
   justify-content: center;
+  margin-top: 3rem;
 }
 
-.toggle-reveal-btn {
-  display: inline-flex;
+.standalone-heart-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  min-height: 360px;
+  background: radial-gradient(circle at center, #fff1f2 0%, #ffe4e6 60%, #fecdd3 100%);
+  border: 3.5px solid #dc2626;
+  border-radius: 44px;
+  box-shadow: 0 25px 60px rgba(185, 28, 28, 0.25),
+              inset 0 0 25px rgba(254, 205, 211, 0.8);
+  display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.6rem;
-  background: rgba(255, 251, 235, 0.92);
-  border: 1.5px solid rgba(217, 119, 6, 0.4);
-  color: #78350f;
-  font-weight: 700;
-  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
-  border-radius: 9999px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(120, 53, 15, 0.12);
-  transition: all 0.3s ease;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1.5rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 
   &:hover {
-    background: #d97706;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(217, 119, 6, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 30px 70px rgba(185, 28, 28, 0.35);
+  }
+}
+
+/* Red Heart Scratch Foil Overlay */
+.heart-scratch-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 44px;
+  background: rgba(255, 241, 242, 0.96);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+
+  .heart-canvas {
+    width: 340px;
+    height: 300px;
+    max-width: 100%;
+    cursor: grab;
+    touch-action: none;
+    filter: drop-shadow(0 12px 25px rgba(220, 38, 38, 0.45));
+
+    &:active {
+      cursor: grabbing;
+    }
   }
 
-  .dropdown-arrow {
-    font-size: 0.75rem;
-    transition: transform 0.3s ease;
+  .heart-scratch-actions {
+    margin-top: 0.75rem;
 
-    &.rotated {
-      transform: rotate(180deg);
+    .quick-heart-btn {
+      padding: 0.45rem 1.25rem;
+      background: #ffffff;
+      border: 1.5px solid #dc2626;
+      color: #991b1b;
+      font-weight: 800;
+      font-size: 0.825rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(185, 28, 28, 0.15);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #ffe4e6;
+        transform: scale(1.05);
+      }
     }
   }
 }
 
-/* Dropped Announcement Board Container & Drop-Down Animation */
-.dropped-board-wrapper {
-  position: relative;
-  margin-top: 2.5rem;
-  animation: dropBoardDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+/* Revealed Details Inside Heart Card */
+.revealed-heart-content {
+  width: 100%;
+  opacity: 0.3;
+  filter: blur(8px);
+  transition: opacity 0.8s ease, filter 0.8s ease;
+  display: flex;
+  justify-content: center;
+
+  &.visible {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .heart-content-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    padding: 1rem 0;
+
+    .heart-sparkle {
+      font-size: 2rem;
+    }
+
+    .heart-title {
+      font-family: var(--font-script);
+      font-size: clamp(2.4rem, 7vw, 3.4rem);
+      color: #991b1b;
+      margin-top: -0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .heart-info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid rgba(220, 38, 38, 0.3);
+      padding: 0.75rem 1.4rem;
+      border-radius: 9999px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 6px 16px rgba(185, 28, 28, 0.08);
+
+      .item-icon {
+        font-size: 1.2rem;
+      }
+
+      .item-text {
+        font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+        font-weight: 700;
+        color: #7f1d1d;
+      }
+    }
+  }
 }
 
-@keyframes dropBoardDown {
+/* Step 2: Hanging Gold Chain Board Revealed After Scratch Completion */
+.hanging-board-wrapper {
+  position: relative;
+  margin-top: 4rem;
+  transform-origin: top center;
+  animation: dropAndSwingBoard 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes dropAndSwingBoard {
   0% {
     opacity: 0;
-    transform: translateY(-60px) scale(0.92);
+    transform: translateY(-50px) scale(0.9) rotate(-3deg);
   }
   70% {
-    transform: translateY(12px) scale(1.02);
+    transform: translateY(10px) scale(1.02) rotate(1.5deg);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotate(0deg);
   }
 }
 
-/* Hanging Chains */
+/* Metallic Gold Chains */
 .hanging-chains {
   position: absolute;
-  top: -2.5rem;
+  top: -3.5rem;
   left: 0;
   right: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 15%;
+  padding: 0 18%;
   pointer-events: none;
   z-index: 1;
 
   .chain {
-    width: 3px;
-    height: 2.5rem;
-    background: linear-gradient(180deg, rgba(217, 119, 6, 0.6) 0%, rgba(120, 53, 15, 0.8) 100%);
+    width: 4px;
+    height: 3.5rem;
+    background: repeating-linear-gradient(
+      180deg,
+      #d97706 0px,
+      #d97706 6px,
+      #78350f 6px,
+      #78350f 10px
+    );
+    border-radius: 2px;
     position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fef08a 0%, #b45309 100%);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
 
     &::after {
       content: '';
@@ -203,131 +327,48 @@
   }
 }
 
-/* Dropped Board Card */
-.dropped-board-card {
+/* Hanging Sign Board Card for Google Maps */
+.hanging-sign-board {
   position: relative;
   z-index: 2;
   background: linear-gradient(145deg, #ffffff 0%, #fffbeb 60%, #fef3c7 100%);
-  border: 2.5px solid #d97706;
+  border: 3px solid #d97706;
   border-radius: 24px;
-  padding: 2.5rem 1.5rem;
-  box-shadow: 0 25px 60px rgba(120, 53, 15, 0.2),
+  padding: 2.25rem 1.5rem;
+  box-shadow: 0 25px 60px rgba(120, 53, 15, 0.22),
               inset 0 0 20px rgba(254, 240, 138, 0.6);
-  overflow: hidden;
+  max-width: 600px;
+  margin: 0 auto;
 
   @media (min-width: 640px) {
-    padding: 3rem 2.5rem;
+    padding: 2.75rem 2.5rem;
     border-radius: 28px;
   }
-}
 
-.board-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-bottom: 2rem;
-
-  .golden-sparkle {
-    font-size: 1.25rem;
-  }
-
-  h3 {
-    font-family: var(--font-script);
-    font-size: clamp(2.4rem, 7vw, 3.8rem);
-    background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
-.board-details-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 2.25rem;
-
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  .info-card {
+  .board-header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1.5px solid rgba(217, 119, 6, 0.3);
-    border-radius: 16px;
-    padding: 1.15rem 1.25rem;
-    text-align: left;
-    box-shadow: 0 8px 20px rgba(120, 53, 15, 0.06);
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
 
-    &.full-width {
-      @media (min-width: 640px) {
-        grid-column: span 2;
-      }
-    }
-
-    .icon-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(254, 243, 199, 0.9);
-      border: 1px solid rgba(217, 119, 6, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .golden-sparkle {
       font-size: 1.25rem;
-      flex-shrink: 0;
     }
 
-    .info-text {
-      display: flex;
-      flex-direction: column;
-
-      .info-label {
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: #b45309;
-        margin-bottom: 0.2rem;
-      }
-
-      .info-val {
-        font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-        font-weight: 700;
-        color: #78350f;
-      }
+    h3 {
+      font-family: var(--font-script);
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
-}
 
-.board-map-container {
-  background: rgba(254, 243, 199, 0.6);
-  border: 1.5px dashed rgba(217, 119, 6, 0.45);
-  border-radius: 20px;
-  padding: 1.5rem 1.25rem;
-
-  @media (min-width: 640px) {
-    padding: 2rem;
-  }
-
-  .map-action-header {
-    margin-bottom: 1.25rem;
-
-    h4 {
-      font-size: clamp(1.1rem, 3vw, 1.35rem);
-      font-weight: 700;
-      color: #78350f;
-      margin-bottom: 0.3rem;
-    }
-
-    p {
-      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
-      color: #b45309;
-    }
+  .map-subtext {
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    color: #b45309;
+    margin-bottom: 1.5rem;
   }
 
   .google-maps-board-btn {

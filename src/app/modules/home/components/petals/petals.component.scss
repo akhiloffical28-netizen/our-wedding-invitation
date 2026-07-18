@@ -46,24 +46,25 @@
 /* 100% GPU Hardware Accelerated Animation without Layout Reflows */
 @keyframes fallAndSway {
   0% {
-    transform: translate3d(0, -10vh, 0) rotate(0deg) scale(0.7);
+    transform: translate3d(0, -15vh, 0) rotate(0deg) scale(0.7);
     opacity: 0;
   }
-  15% {
+  10% {
     opacity: 0.9;
   }
   35% {
     transform: translate3d(35px, 35vh, 0) rotate(120deg) scale(1.05);
+    opacity: 0.95;
   }
   65% {
     transform: translate3d(-30px, 70vh, 0) rotate(240deg) scale(0.9);
     opacity: 0.85;
   }
   90% {
-    opacity: 0.5;
+    opacity: 0.7;
   }
   100% {
-    transform: translate3d(20px, 110vh, 0) rotate(360deg) scale(0.7);
+    transform: translate3d(20px, 115vh, 0) rotate(360deg) scale(0.7);
     opacity: 0;
   }
 }
