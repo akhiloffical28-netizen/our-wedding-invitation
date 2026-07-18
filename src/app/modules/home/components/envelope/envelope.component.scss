@@ -7,7 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fdfbf7 0%, #f7f0e6 50%, #ede3d3 100%);
+  background: #ede6da; /* Warm Linen Beige Backdrop */
+  background-image: 
+    radial-gradient(circle at 50% 30%, #f7f3ec 0%, #e6dccb 70%, #d8caa7 100%);
   overflow: hidden;
   padding: 0;
   margin: 0;
@@ -20,7 +22,7 @@
   }
 }
 
-/* Ambient Stage Glow - Warm Champagne Gold */
+/* Ambient Stage Elements - Soft Gold & Warm Ivory Glow */
 .envelope-ambient-bg {
   position: absolute;
   inset: 0;
@@ -29,45 +31,45 @@
   .glow-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.6;
+    filter: blur(100px);
+    opacity: 0.45;
   }
 
   .orb-1 {
     width: 60vw;
     height: 60vw;
-    background: radial-gradient(circle, #fef08a 0%, transparent 70%);
-    top: -10%;
-    left: 10%;
+    background: radial-gradient(circle, #fcf4dd 0%, transparent 70%);
+    top: -15%;
+    left: 5%;
   }
 
   .orb-2 {
     width: 65vw;
     height: 65vw;
-    background: radial-gradient(circle, #d97706 0%, transparent 70%);
-    bottom: -10%;
-    right: 10%;
+    background: radial-gradient(circle, #d9be9b 0%, transparent 70%);
+    bottom: -15%;
+    right: 5%;
   }
 }
 
-/* 100% Fullscreen 3D Envelope Container (Gold & Cream) */
+/* 100% Fullscreen Envelope Stage Container */
 .envelope-container {
   position: relative;
   width: 100vw;
   height: 100vh;
   max-width: 100%;
   max-height: 100%;
-  background: linear-gradient(145deg, #ffffff 0%, #fffbeb 60%, #fef3c7 100%);
-  border-radius: 0;
-  border: none;
-  box-shadow: none;
+  background: #d8c3a5; /* Kraft Paper Warm Sand Base */
+  background-image: 
+    radial-gradient(circle at center, #dfccb1 0%, #ceb99a 60%, #beaa8b 100%);
   cursor: pointer;
   perspective: 1400px;
   overflow: hidden;
+  box-shadow: inset 0 0 80px rgba(77, 57, 26, 0.15);
 }
 
-/* Top Half Triangular Envelope Flap */
-.envelope-flap {
+/* Top Charcoal Black Triangular Flap (Matching Video!) */
+.envelope-flap-charcoal {
   position: absolute;
   top: 0;
   left: 0;
@@ -75,15 +77,15 @@
   height: 50vh;
   z-index: 4;
   transform-origin: top center;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: drop-shadow(0 10px 20px rgba(120, 53, 15, 0.15));
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 12px 25px rgba(25, 26, 30, 0.35));
 
-  .flap-inner {
+  .flap-inner-dark {
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);
+    background: linear-gradient(180deg, #1e1f25 0%, #292b33 80%, #17181c 100%);
     clip-path: polygon(0 0, 100% 0, 50% 100%);
-    border-bottom: 2.5px solid #d97706;
+    border-bottom: 1.5px solid #d4af37; /* Metallic Gold Trim Line */
   }
 
   .open & {
@@ -92,8 +94,8 @@
   }
 }
 
-/* Interactive Magical Golden Butterfly Seal Button */
-.butterfly-seal {
+/* Golden Wax Stamp Seal Button (Exact Center) */
+.wax-stamp-seal {
   position: absolute;
   top: 50vh;
   left: 50vw;
@@ -103,148 +105,107 @@
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  perspective: 800px;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
 
-  .butterfly-container {
+  .wax-seal-container {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: butterflyFloat 2.8s infinite ease-in-out alternate;
+    animation: waxPulse 2.8s infinite ease-in-out alternate;
   }
 
-  .golden-butterfly-svg {
-    width: clamp(110px, 26vw, 150px);
-    height: clamp(90px, 22vw, 120px);
-    filter: drop-shadow(0 12px 25px rgba(217, 119, 6, 0.6))
-            drop-shadow(0 0 15px rgba(254, 240, 138, 0.8));
-
-    .wing {
-      transform-origin: 50px 40px;
-      transition: transform 0.3s ease;
-    }
-
-    .left-wing {
-      animation: wingFlapLeft 1.2s infinite ease-in-out alternate;
-    }
-
-    .right-wing {
-      animation: wingFlapRight 1.2s infinite ease-in-out alternate;
-    }
+  .wax-seal-svg {
+    width: clamp(100px, 24vw, 135px);
+    height: clamp(100px, 24vw, 135px);
+    filter: drop-shadow(0 10px 20px rgba(61, 43, 15, 0.5))
+            drop-shadow(0 0 15px rgba(255, 230, 128, 0.4));
   }
 
-  .butterfly-monogram {
-    margin-top: 0.35rem;
+  .wax-tap-hint {
+    margin-top: 0.5rem;
     font-family: var(--font-serif);
-    font-size: clamp(0.95rem, 2.8vw, 1.25rem);
-    font-weight: 800;
-    color: #78350f;
+    font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+    font-weight: 700;
+    color: #4d3900;
     letter-spacing: 2px;
-    background: rgba(254, 243, 199, 0.92);
-    border: 1.5px solid rgba(217, 119, 6, 0.4);
-    padding: 0.25rem 0.9rem;
+    text-transform: uppercase;
+    background: rgba(255, 241, 170, 0.92);
+    border: 1.5px solid rgba(204, 153, 0, 0.6);
+    padding: 0.25rem 0.85rem;
     border-radius: 9999px;
-    box-shadow: 0 4px 12px rgba(120, 53, 15, 0.15),
-                0 0 15px rgba(254, 240, 138, 0.6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   &:hover {
-    .butterfly-container {
+    .wax-seal-container {
       animation: none;
-      transform: scale(1.15);
+      transform: scale(1.12);
     }
 
-    .left-wing {
-      animation: wingFlapLeft 0.5s infinite ease-in-out alternate !important;
-    }
-
-    .right-wing {
-      animation: wingFlapRight 0.5s infinite ease-in-out alternate !important;
-    }
-
-    .golden-butterfly-svg {
-      filter: drop-shadow(0 16px 35px rgba(217, 119, 6, 0.85))
-              drop-shadow(0 0 25px rgba(254, 240, 138, 0.95));
+    .wax-seal-svg {
+      filter: drop-shadow(0 14px 30px rgba(61, 43, 15, 0.7))
+              drop-shadow(0 0 22px rgba(255, 230, 128, 0.75));
     }
   }
 
   &:active {
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.94);
   }
 
   .open & {
-    animation: butterflyLiftOff 0.8s forwards ease-in-out;
+    animation: waxSealBreak 0.8s forwards ease-in-out;
     pointer-events: none;
   }
 }
 
-/* 3D Wing Flapping Keyframe Animations */
-@keyframes wingFlapLeft {
-  0% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(42deg);
-  }
-}
-
-@keyframes wingFlapRight {
-  0% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(-42deg);
-  }
-}
-
-@keyframes butterflyFloat {
+@keyframes waxPulse {
   0% {
     transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-12px) scale(1.04);
+    transform: translateY(-8px) scale(1.03);
   }
   100% {
-    transform: translateY(4px) scale(0.98);
+    transform: translateY(3px) scale(0.98);
   }
 }
 
-@keyframes butterflyLiftOff {
+@keyframes waxSealBreak {
   0% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
   50% {
-    transform: translate(-50%, -120px) scale(1.3) rotate(-8deg);
-    opacity: 0.8;
+    transform: translate(-50%, -100px) scale(1.25) rotate(-10deg);
+    opacity: 0.7;
   }
   100% {
-    transform: translate(-50%, -240px) scale(1.6) rotate(12deg);
+    transform: translate(-50%, -200px) scale(1.5) rotate(15deg);
     opacity: 0;
   }
 }
 
-/* Bottom Half Envelope Front Body - Cream & Gold */
-.envelope-body {
+/* Kraft Paper Envelope Front Pocket Body */
+.envelope-kraft-body {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100vw;
   height: 50vh;
   z-index: 3;
-  border-radius: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   padding: 3rem 1.5rem;
-  background: linear-gradient(0deg, rgba(253, 251, 247, 0.98) 0%, rgba(247, 240, 230, 0.9) 100%);
+  background: linear-gradient(0deg, #d3c0a4 0%, #dfcdb3 60%, #e8d9c2 100%);
+  box-shadow: 0 -8px 25px rgba(30, 31, 37, 0.12);
 
   .envelope-front-details {
     text-align: center;
@@ -255,82 +216,124 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 3px;
-      color: #b45309;
-      margin-bottom: 0.5rem;
+      color: #735938;
+      margin-bottom: 0.4rem;
     }
 
     .couple-title {
       font-family: var(--font-script);
       font-size: clamp(2.6rem, 8vw, 4.2rem);
-      background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+      background: linear-gradient(135deg, #1e1f25 0%, #4a4d57 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.35rem;
     }
 
     .tap-hint {
-      font-size: clamp(0.9rem, 2.8vw, 1.1rem);
-      color: #92400e;
+      font-size: clamp(0.85rem, 2.6vw, 1rem);
+      color: #5c4527;
       opacity: 0.95;
       font-style: italic;
       font-weight: 600;
     }
   }
+
+  /* Diagonal Side Folds for Kraft Texture Envelope Realism */
+  .side-fold {
+    position: absolute;
+    bottom: 0;
+    width: 50vw;
+    height: 50vh;
+    pointer-events: none;
+
+    &.fold-left {
+      left: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.04) 0%, transparent 60%);
+      clip-path: polygon(0 0, 0 100%, 100% 100%);
+    }
+
+    &.fold-right {
+      right: 0;
+      background: linear-gradient(-135deg, rgba(0,0,0,0.04) 0%, transparent 60%);
+      clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    }
+  }
 }
 
-/* Fullscreen Card Preview inside Envelope */
+/* Fullscreen Invitation Card Inside Envelope that Slides Out */
 .invitation-card-preview {
   position: absolute;
   top: 8vh;
   left: 5vw;
   right: 5vw;
   height: 84vh;
-  max-width: 700px;
+  max-width: 680px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
-  border-radius: 28px;
+  background: #fdfcf7; /* Ivory Cream Silk Paper */
+  background-image: linear-gradient(145deg, #ffffff 0%, #fbf8f1 100%);
+  border-radius: 24px;
   z-index: 2;
-  padding: 3rem 2rem;
+  padding: 1.5rem;
   text-align: center;
-  color: #78350f;
-  border: 2px solid rgba(217, 119, 6, 0.3);
-  box-shadow: 0 15px 40px rgba(120, 53, 15, 0.15);
+  color: #1e1f25;
+  box-shadow: 0 18px 45px rgba(30, 31, 37, 0.18);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, opacity 0.6s ease 0.4s;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.25s, opacity 0.6s ease 0.4s;
+
+  .card-inner-border {
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid #d4af37; /* Fine Gold Foil Border */
+    border-radius: 18px;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
   .card-header {
     font-family: var(--font-sans);
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    font-size: clamp(0.8rem, 2.4vw, 0.95rem);
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #b45309;
+    color: #735938;
     margin-bottom: 0.75rem;
   }
 
   h3 {
     font-family: var(--font-script);
-    font-size: clamp(3rem, 9vw, 4.5rem);
-    color: #92400e;
-    margin-bottom: 1rem;
+    font-size: clamp(3rem, 9vw, 4.6rem);
+    color: #1e1f25;
+    margin-bottom: 0.5rem;
+  }
+
+  .invite-subtext {
+    font-family: var(--font-serif);
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+    font-style: italic;
+    color: #5c4527;
+    margin-bottom: 1.5rem;
   }
 
   .date-badge {
     display: inline-block;
-    padding: 0.5rem 1.4rem;
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-    color: #ffffff;
+    padding: 0.55rem 1.5rem;
+    background: linear-gradient(135deg, #1e1f25 0%, #363842 100%);
+    color: #fef08a; /* Metallic Gold Accent Text */
+    border: 1px solid #d4af37;
     border-radius: 9999px;
     font-size: clamp(0.85rem, 2.5vw, 1rem);
     font-weight: 700;
     letter-spacing: 1.5px;
-    box-shadow: 0 6px 16px rgba(217, 119, 6, 0.35);
+    box-shadow: 0 6px 18px rgba(30, 31, 37, 0.25);
   }
 
   .open & {
-    transform: translateY(-220px) scale(1.08);
+    transform: translateY(-230px) scale(1.08);
     opacity: 0;
   }
 }
