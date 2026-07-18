@@ -1,0 +1,31 @@
+.replay-envelope-btn {
+  position: fixed;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 251, 235, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(217, 119, 6, 0.35);
+  color: #78350f;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(120, 53, 15, 0.15);
+  transition: all 0.3s ease;
+
+  @media (min-width: 640px) {
+    top: 1.25rem;
+    right: 1.25rem;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  &:hover {
+    background: #d97706;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(217, 119, 6, 0.35);
+  }
+}

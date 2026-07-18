@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Design System - Luxury Gold & Cream Theme */
+:root {
+  --font-script: 'Alex Brush', cursive;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --color-cream-light: #fdfbf7;
+  --color-cream-soft: #f7f0e6;
+  --color-gold-light: #fef08a;
+  --color-gold-main: #d97706;
+  --color-gold-dark: #b45309;
+  --color-bronze-dark: #78350f;
+  --color-text-main: #451a03;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream-light);
+  color: var(--color-text-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}

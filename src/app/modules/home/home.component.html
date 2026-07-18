@@ -1,0 +1,45 @@
+<!-- Falling Rose Petals Effect (Only Active After Envelope Opens) -->
+@if (isEnvelopeHidden()) {
+  <app-petals></app-petals>
+}
+
+<!-- Replay Envelope Button -->
+@if (isEnvelopeHidden()) {
+  <button 
+    class="replay-envelope-btn" 
+    (click)="replayEnvelope()" 
+    title="View Envelope Invitation Again"
+  >
+    <span>💌 View Envelope</span>
+  </button>
+}
+
+<!-- Modular Envelope Stage Component -->
+<app-envelope 
+  [isEnvelopeHidden]="isEnvelopeHidden()" 
+  (opened)="onEnvelopeOpened()"
+></app-envelope>
+
+<!-- Main Page Content Sequence: Hero -> Story -> Countdown -> Gallery -->
+@if (isHeroRevealed() || isEnvelopeHidden()) {
+  <div class="page-content-wrapper">
+    
+    <!-- 1. Hero Section Component -->
+    <app-hero 
+      groomName="Akhil" 
+      brideName="Mary" 
+      locationUrl="https://maps.app.goo.gl/1dtB6QUacNcwZiVU7" 
+      [isRevealed]="true"
+    ></app-hero>
+
+    <!-- 2. Story Section Component -->
+    <app-story></app-story>
+
+    <!-- 3. Countdown Section Component (Jan 31, 2027) -->
+    <app-countdown targetDate="2027-01-31T10:00:00"></app-countdown>
+
+    <!-- 4. Gallery Section Component -->
+    <app-gallery></app-gallery>
+
+  </div>
+}

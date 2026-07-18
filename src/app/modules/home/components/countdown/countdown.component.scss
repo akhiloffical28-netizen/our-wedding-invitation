@@ -1,0 +1,112 @@
+.countdown-section {
+  padding: 4rem 1rem;
+  background: linear-gradient(180deg, #f7f0e6 0%, #ede3d3 100%);
+  color: #451a03;
+  text-align: center;
+
+  @media (min-width: 640px) {
+    padding: 5rem 1.5rem;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+.section-header {
+  margin-bottom: 2.5rem;
+
+  @media (min-width: 640px) {
+    margin-bottom: 3.5rem;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(254, 243, 199, 0.85);
+    border: 1px solid rgba(217, 119, 6, 0.35);
+    color: #92400e;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: var(--font-script);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    font-style: italic;
+    color: #78350f;
+  }
+}
+
+.timer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+.time-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .digit-box {
+    width: 100%;
+    height: clamp(85px, 22vw, 110px);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(217, 119, 6, 0.35);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(120, 53, 15, 0.08),
+                inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    @media (min-width: 640px) {
+      border-radius: 20px;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: #d97706;
+    }
+
+    span {
+      font-family: var(--font-sans);
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .unit-label {
+    margin-top: 0.65rem;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #92400e;
+  }
+}

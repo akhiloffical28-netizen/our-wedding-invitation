@@ -1,0 +1,35 @@
+<section class="story-section" id="our-story">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="badge">Love Story</span>
+      <h2>Our Journey Together</h2>
+      <p class="subtitle">Every love story is beautiful, but ours is our favorite.</p>
+    </div>
+
+    <div class="timeline">
+      @for (item of storyEvents; track item.title; let i = $index) {
+        <div class="timeline-item" [class.even]="i % 2 === 1">
+          
+          <div class="timeline-badge">
+            <span>{{ item.icon }}</span>
+          </div>
+
+          <div class="timeline-card">
+            <span class="story-date">{{ item.date }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            
+            @if (item.image) {
+              <div class="story-image-wrapper">
+                <img [src]="item.image" [alt]="item.title" loading="lazy" />
+              </div>
+            }
+          </div>
+
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

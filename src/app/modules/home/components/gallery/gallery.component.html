@@ -1,0 +1,38 @@
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="badge">Moments & Memories</span>
+      <h2>Our Photo Gallery</h2>
+      <p class="subtitle">A glimpse into our favorite moments captured together.</p>
+    </div>
+
+    <div class="gallery-grid">
+      @for (item of galleryItems; track item.caption) {
+        <div class="gallery-card" (click)="openLightbox(item)">
+          <img [src]="item.url" [alt]="item.caption" loading="lazy" />
+          <div class="card-overlay">
+            <span class="category">{{ item.category }}</span>
+            <h4>{{ item.caption }}</h4>
+            <span class="view-icon">🔍</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Lightbox Modal -->
+    @if (selectedImage) {
+      <div class="lightbox-modal" (click)="closeLightbox()">
+        <div class="lightbox-content" (click)="$event.stopPropagation()">
+          <button class="close-btn" (click)="closeLightbox()">✕</button>
+          <img [src]="selectedImage.url" [alt]="selectedImage.caption" />
+          <div class="lightbox-caption">
+            <h3>{{ selectedImage.caption }}</h3>
+            <p>{{ selectedImage.category }}</p>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

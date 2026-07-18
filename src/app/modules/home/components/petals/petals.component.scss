@@ -1,0 +1,63 @@
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10001;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -12%;
+  will-change: transform, opacity;
+  animation: fallAndSway linear infinite;
+  filter: drop-shadow(0 3px 8px rgba(120, 53, 15, 0.25));
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Gold and Champagne Petal Options */
+  &.color-0 {
+    color: #d97706; /* Warm Gold */
+  }
+
+  &.color-2 {
+    color: #b45309; /* Deep Metallic Gold */
+  }
+
+  &.color-1 {
+    color: #fcd34d; /* Bright Champagne Gold */
+  }
+
+  &.color-3 {
+    color: #fef08a; /* Soft Cream Gold */
+  }
+}
+
+@keyframes fallAndSway {
+  0% {
+    top: -10%;
+    transform: translateX(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  35% {
+    transform: translateX(40px) rotate(120deg) scale(1.05);
+  }
+  65% {
+    transform: translateX(-35px) rotate(240deg) scale(0.9);
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 105%;
+    transform: translateX(20px) rotate(360deg) scale(0.8);
+    opacity: 0;
+  }
+}

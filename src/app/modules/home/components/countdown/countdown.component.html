@@ -1,0 +1,41 @@
+<section class="countdown-section" id="countdown">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="badge">Counting Down</span>
+      <h2>Until We Say "I Do"</h2>
+      <p class="subtitle">The big day is approaching, and we can't wait to celebrate with you!</p>
+    </div>
+
+    <div class="timer-grid">
+      <div class="time-card">
+        <div class="digit-box">
+          <span>{{ formatNumber(timeLeft().days) }}</span>
+        </div>
+        <span class="unit-label">Days</span>
+      </div>
+
+      <div class="time-card">
+        <div class="digit-box">
+          <span>{{ formatNumber(timeLeft().hours) }}</span>
+        </div>
+        <span class="unit-label">Hours</span>
+      </div>
+
+      <div class="time-card">
+        <div class="digit-box">
+          <span>{{ formatNumber(timeLeft().minutes) }}</span>
+        </div>
+        <span class="unit-label">Minutes</span>
+      </div>
+
+      <div class="time-card">
+        <div class="digit-box">
+          <span>{{ formatNumber(timeLeft().seconds) }}</span>
+        </div>
+        <span class="unit-label">Seconds</span>
+      </div>
+    </div>
+
+  </div>
+</section>
