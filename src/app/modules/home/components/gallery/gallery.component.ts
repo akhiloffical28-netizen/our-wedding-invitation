@@ -15,6 +15,11 @@ interface GalleryItem {
 export class GalleryComponent {
   galleryItems: GalleryItem[] = [
     {
+      url: '/images/first-photo.jpeg',
+      caption: 'First Days in College',
+      category: 'Memories'
+    },
+    {
       url: '/images/story-1.png',
       caption: 'Akhil & Mary',
       category: 'Pre-Wedding'

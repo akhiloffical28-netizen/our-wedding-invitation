@@ -17,10 +17,11 @@ interface StoryEvent {
 export class StoryComponent {
   storyEvents: StoryEvent[] = [
     {
-      date: 'May 14, 2021',
+      date: 'September 28, 2018',
       title: 'How We Met',
-      description: 'Our paths crossed for the first time, sparking a conversation that neither of us wanted to end.',
-      icon: '✨'
+      description: 'We first met in college, where she was my junior and our journey began.',
+      icon: '✨',
+      image: '/images/first-photo.jpeg'
     },
     {
       date: 'December 20, 2022',
