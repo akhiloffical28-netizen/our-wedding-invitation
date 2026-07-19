@@ -57,23 +57,62 @@
           <span class="golden-sparkle">✨</span>
         </div>
 
-        <!-- Event Details (Date, Time, Venue Name) -->
-        <div class="event-info-grid">
-          <div class="info-pill">
-            <span class="pill-icon">🗓️</span>
-            <span class="pill-text">{{ eventDateFormatted }}</span>
+        <!-- Event Details (Date, Time, Venue Name) in One Huge Square Scratch Card -->
+        <div class="big-scratch-card-wrapper">
+          
+          <!-- Underlying Unlocked Details Card -->
+          <div class="unlocked-details-card">
+            <div class="detail-row">
+              <div class="detail-icon">🗓️</div>
+              <div class="detail-info">
+                <span class="detail-label">DATE</span>
+                <span class="detail-val">{{ eventDateFormatted }}</span>
+              </div>
+            </div>
+
+            <div class="detail-divider"></div>
+
+            <div class="detail-row">
+              <div class="detail-icon">⏰</div>
+              <div class="detail-info">
+                <span class="detail-label">TIME</span>
+                <span class="detail-val">{{ eventTime }}</span>
+              </div>
+            </div>
+
+            <div class="detail-divider"></div>
+
+            <div class="detail-row">
+              <div class="detail-icon">💒</div>
+              <div class="detail-info">
+                <span class="detail-label">VENUE</span>
+                <span class="detail-val">{{ venueAddress }}</span>
+              </div>
+            </div>
           </div>
 
-          <div class="info-pill">
-            <span class="pill-icon">⏰</span>
-            <span class="pill-text">{{ eventTime }}</span>
-          </div>
+          <!-- Single Huge Canvas Surface overlay -->
+          <canvas 
+            #bigScratchCanvas 
+            class="big-scratch-canvas"
+            (mousedown)="startBigScratch($event)"
+            (mousemove)="bigScratch($event)"
+            (mouseup)="stopBigScratch()"
+            (mouseleave)="stopBigScratch()"
+            (touchstart)="startBigScratch($event)"
+            (touchmove)="bigScratch($event)"
+            (touchend)="stopBigScratch()"
+          ></canvas>
 
-          <div class="info-pill venue-pill">
-            <span class="pill-icon">💒</span>
-            <span class="pill-text">{{ venueAddress }}</span>
-          </div>
+          <!-- Crackers Explosion Canvas -->
+          <canvas #crackersCanvas class="crackers-canvas"></canvas>
         </div>
+
+        <!-- <div class="reveal-all-wrapper">
+          <button type="button" class="reveal-all-btn" (click)="revealBigScratchCard()">
+            ✨ Tap here to reveal details & pop crackers 🎆
+          </button>
+        </div> -->
 
         <!-- Elegant Divider Ornament -->
         <div class="billboard-divider">

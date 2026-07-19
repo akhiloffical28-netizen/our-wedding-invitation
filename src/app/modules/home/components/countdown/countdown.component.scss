@@ -226,42 +226,120 @@
     }
   }
 
-  /* Info Grid (Date, Time, Venue) */
-  .event-info-grid {
+  /* Single Huge Square Scratch Card Wrapper */
+  .big-scratch-card-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto 1rem;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(120, 53, 15, 0.15);
+    border: 2px solid rgba(217, 119, 6, 0.35);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Underlying Unlocked Details Card */
+  .unlocked-details-card {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    padding: 1.5rem 1.75rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.85rem;
-    width: 100%;
-    margin-bottom: 1.5rem;
 
-    @media (min-width: 640px) {
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .info-pill {
+    .detail-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1.5px solid rgba(217, 119, 6, 0.4);
-      padding: 0.75rem 1.4rem;
-      border-radius: 9999px;
-      width: 100%;
-      max-width: 320px;
-      box-shadow: 0 4px 15px rgba(120, 53, 15, 0.06);
+      gap: 1rem;
 
-      .pill-icon {
-        font-size: 1.25rem;
+      .detail-icon {
+        font-size: 1.6rem;
+        width: 44px;
+        height: 44px;
+        background: #fef3c7;
+        border: 1px solid rgba(217, 119, 6, 0.3);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
       }
 
-      .pill-text {
-        font-size: clamp(0.9rem, 2.5vw, 1.05rem);
-        font-weight: 700;
-        color: #78350f;
+      .detail-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+
+        .detail-label {
+          font-size: 0.725rem;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+          color: #92400e;
+        }
+
+        .detail-val {
+          font-size: clamp(0.95rem, 2.6vw, 1.1rem);
+          font-weight: 700;
+          color: #451a03;
+        }
+      }
+    }
+
+    .detail-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.25), transparent);
+    }
+  }
+
+  /* Canvas overlays */
+  .big-scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    border-radius: 24px;
+    cursor: grab;
+    touch-action: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .crackers-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    border-radius: 24px;
+  }
+
+  .reveal-all-wrapper {
+    margin-bottom: 1.5rem;
+
+    .reveal-all-btn {
+      background: rgba(254, 243, 199, 0.9);
+      border: 1.5px solid rgba(217, 119, 6, 0.4);
+      color: #78350f;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.55rem 1.35rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(120, 53, 15, 0.08);
+      transition: all 0.25s ease;
+
+      &:hover {
+        background: #fef08a;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(120, 53, 15, 0.15);
       }
     }
   }
