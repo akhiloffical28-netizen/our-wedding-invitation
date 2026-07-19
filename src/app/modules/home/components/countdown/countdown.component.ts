@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, signal } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
 
 interface TimeLeft {
   days: number;
@@ -21,20 +21,10 @@ export class CountdownComponent implements OnInit, OnDestroy {
   @Input() eventDateFormatted: string = 'Sunday, January 31, 2027';
   @Input() locationUrl: string = 'https://maps.app.goo.gl/1dtB6QUacNcwZiVU7';
 
-  @ViewChild('heartCanvas') set heartCanvas(content: ElementRef<HTMLCanvasElement>) {
-    if (content) {
-      this._canvasRef = content;
-      setTimeout(() => this.initHeartCanvas(), 100);
-    }
-  }
-
-  private _canvasRef!: ElementRef<HTMLCanvasElement>;
-
   timeLeft = signal<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   isCompleted = signal<boolean>(false);
-  isHeartScratched = signal<boolean>(false);
+  showCalendarMenu = signal<boolean>(false);
 
-  private isDrawing = false;
   private timer: any;
 
   ngOnInit(): void {
@@ -46,135 +36,76 @@ export class CountdownComponent implements OnInit, OnDestroy {
     if (this.timer) clearInterval(this.timer);
   }
 
-  revealHeartInstantly(): void {
-    this.isHeartScratched.set(true);
+  toggleCalendarMenu(): void {
+    this.showCalendarMenu.update((v) => !v);
   }
 
-  private initHeartCanvas(): void {
-    if (!this._canvasRef) return;
-    const canvas = this._canvasRef.nativeElement;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+  get googleCalendarUrl(): string {
+    const startDate = new Date(this.targetDate);
+    const endDate = new Date(startDate.getTime() + 6 * 60 * 60 * 1000);
 
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width || 340;
-    canvas.height = rect.height || 320;
+    const formatICSDate = (date: Date) => date.toISOString().replace(/-|:|\.\d\d\d/g, '');
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const startISO = formatICSDate(startDate);
+    const endISO = formatICSDate(endDate);
 
-    // Draw Red Heart Shape
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height * 0.45;
-    const size = Math.min(canvas.width, canvas.height) * 0.78;
+    const title = encodeURIComponent(this.venueTitle);
+    const location = encodeURIComponent(this.venueAddress);
+    const details = encodeURIComponent(
+      `We can't wait to celebrate our wedding with you!\nDate: ${this.eventDateFormatted}\nTime: ${this.eventTime}\nVenue: ${this.venueAddress}`
+    );
 
-    ctx.save();
-    this.drawHeartPath(ctx, centerX, centerY, size);
-
-    // Rich Crimson Red Gradient Fill
-    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    grad.addColorStop(0, '#f87171');
-    grad.addColorStop(0.3, '#ef4444');
-    grad.addColorStop(0.7, '#dc2626');
-    grad.addColorStop(1, '#991b1b');
-
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Gold border line on red heart
-    ctx.lineWidth = 3.5;
-    ctx.strokeStyle = '#fef08a';
-    ctx.stroke();
-
-    // Heart Label Text
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 15px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('💖 Rub / Scratch Red Heart 💖', centerX, centerY - 10);
-    ctx.font = '12px sans-serif';
-    ctx.fillStyle = '#fef08a';
-    ctx.fillText('To Reveal Date & Venue', centerX, centerY + 15);
-
-    ctx.restore();
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startISO}/${endISO}&details=${details}&location=${location}`;
   }
 
-  private drawHeartPath(ctx: CanvasRenderingContext2D, cx: number, cy: number, size: number): void {
-    const w = size;
-    const h = size * 0.9;
-    const x = cx;
-    const y = cy - h / 2;
+  get outlookCalendarUrl(): string {
+    const startDate = new Date(this.targetDate);
+    const endDate = new Date(startDate.getTime() + 6 * 60 * 60 * 1000);
 
-    ctx.beginPath();
-    ctx.moveTo(x, y + h * 0.3);
-    ctx.bezierCurveTo(x, y + h * 0.1, x - w / 2, y, x - w / 2, y + h * 0.35);
-    ctx.bezierCurveTo(x - w / 2, y + h * 0.65, x - w * 0.2, y + h * 0.85, x, y + h * 0.95);
-    ctx.bezierCurveTo(x + w * 0.2, y + h * 0.85, x + w / 2, y + h * 0.65, x + w / 2, y + h * 0.35);
-    ctx.bezierCurveTo(x + w / 2, y, x, y + h * 0.1, x, y + h * 0.3);
-    ctx.closePath();
+    const startISO = startDate.toISOString();
+    const endISO = endDate.toISOString();
+
+    const title = encodeURIComponent(this.venueTitle);
+    const location = encodeURIComponent(this.venueAddress);
+    const details = encodeURIComponent(
+      `We can't wait to celebrate our wedding with you!\nDate: ${this.eventDateFormatted}\nTime: ${this.eventTime}\nVenue: ${this.venueAddress}`
+    );
+
+    return `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${title}&startdt=${startISO}&enddt=${endISO}&body=${details}&location=${location}`;
   }
 
-  startScratch(e: MouseEvent | TouchEvent): void {
-    this.isDrawing = true;
-    this.scratch(e);
-  }
+  downloadICS(): void {
+    const startDate = new Date(this.targetDate);
+    const endDate = new Date(startDate.getTime() + 6 * 60 * 60 * 1000);
 
-  stopScratch(): void {
-    if (this.isDrawing) {
-      this.isDrawing = false;
-      this.checkScratchPercent();
-    }
-  }
+    const formatICSDate = (date: Date) => date.toISOString().replace(/-|:|\.\d\d\d/g, '');
 
-  scratch(e: MouseEvent | TouchEvent): void {
-    if (!this.isDrawing || this.isHeartScratched() || !this._canvasRef) return;
+    const startISO = formatICSDate(startDate);
+    const endISO = formatICSDate(endDate);
 
-    const canvas = this._canvasRef.nativeElement;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Our Wedding Invitation//EN',
+      'CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      `SUMMARY:${this.venueTitle}`,
+      `DESCRIPTION:We can't wait to celebrate our wedding with you! Date: ${this.eventDateFormatted}, Time: ${this.eventTime}`,
+      `LOCATION:${this.venueAddress}`,
+      `DTSTART:${startISO}`,
+      `DTEND:${endISO}`,
+      'STATUS:CONFIRMED',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
 
-    const rect = canvas.getBoundingClientRect();
-    let clientX = 0;
-    let clientY = 0;
-
-    if (e instanceof MouseEvent) {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    } else if (e.touches && e.touches.length > 0) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    }
-
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 30, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  private checkScratchPercent(): void {
-    if (!this._canvasRef || this.isHeartScratched()) return;
-
-    const canvas = this._canvasRef.nativeElement;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const pixels = imageData.data;
-    let transparentPixels = 0;
-
-    for (let i = 3; i < pixels.length; i += 24) {
-      if (pixels[i] === 0) {
-        transparentPixels++;
-      }
-    }
-
-    const totalSampledPixels = pixels.length / 24;
-    const percent = Math.round((transparentPixels / totalSampledPixels) * 100);
-
-    if (percent >= 25) {
-      this.isHeartScratched.set(true);
-    }
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', 'wedding-event.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   private updateCountdown(): void {
